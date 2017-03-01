@@ -12,7 +12,7 @@
 #include <pocketsphinx.h>
 
 static int l_version(lua_State *L){
-    lua_pushstring(L, "0.0.1");
+    lua_pushstring(L, "0.0.2");
     return 1;
 }
 
