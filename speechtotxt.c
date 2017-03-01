@@ -86,7 +86,7 @@ static int l_open(lua_State *L){
 
     fh = fopen(snd, "rb");
     if (fh == NULL) {
-        fprintf(stderr, "Unable to open input file goforward.raw\n");
+        fprintf(stderr, "Unable to open input file\n");
         return -1;
     }
 
