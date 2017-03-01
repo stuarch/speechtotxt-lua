@@ -17,12 +17,6 @@ static int l_version(lua_State *L){
 }
 
 typedef struct {
-<<<<<<< HEAD
-=======
-    char *hmm;
-    char *lm;
-    char *dict;
->>>>>>> a5a11e7167ddec512e79f72f1c99aecc77f445b1
     cmd_ln_t *config;
     ps_decoder_t *ps;
 } ps_meta;
@@ -45,22 +39,14 @@ static int l_init(lua_State *L){
         lm = "/usr/share/pocketsphinx/model/en-us/en-us.lm.bin";
     }else{
         lm = malloc(sizeof(luaL_checkstring(L, 2)));
-<<<<<<< HEAD
         strcpy(lm, luaL_checkstring(L, 2));
-=======
-        strcpy(ctx->lm, luaL_checkstring(L, 2));
->>>>>>> a5a11e7167ddec512e79f72f1c99aecc77f445b1
     }
     
     if(lua_isnil(L, 3)){
         dict = "/usr/share/pocketsphinx/model/en-us/cmudict-en-us.dict";
     }else{
         dict = malloc(sizeof(luaL_checkstring(L, 3)));
-<<<<<<< HEAD
         strcpy(dict, luaL_checkstring(L, 3));
-=======
-        strcpy(ctx->dict, luaL_checkstring(L, 3));
->>>>>>> a5a11e7167ddec512e79f72f1c99aecc77f445b1
     }
 
     ctx->config = cmd_ln_init(NULL, ps_args(), TRUE,
