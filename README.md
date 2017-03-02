@@ -19,6 +19,7 @@ $ sudo make install
 
 ### Usage
 
+From file
 ```
 speechtotxt = require("speechtotxt")
 
@@ -29,6 +30,22 @@ speech = speechtotxt.init(nil,nil,nil)
 --get the speechtotxt result
 --Address of sound file as argument
 txt = speech:open("./test.wav")
+print(txt)
+
+--close context
+speech:close()
+```
+From Microphine
+```
+speechtotxt = require("speechtotxt")
+
+--first argument is for -hmm, second is for -lm, the last is for --dict.
+--left it nil for default.
+speech = speechtotxt.init(nil,nil,nil)
+
+--get the speechtotxt result
+--Address of sound file as argument
+txt = speech:mic()
 print(txt)
 
 --close context
