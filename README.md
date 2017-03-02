@@ -44,7 +44,7 @@ speechtotxt = require("speechtotxt")
 speech = speechtotxt.init(nil,nil,nil)
 
 --get the speechtotxt result
---Address of sound file as argument
+--it will wait for speak
 txt = speech:mic()
 print(txt)
 
