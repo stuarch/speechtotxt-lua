@@ -9,6 +9,7 @@
 #include <lauxlib.h>
 #include <lualib.h>
 
+#include <sphinxbase/ad.h>
 #include <pocketsphinx.h>
 
 static int l_version(lua_State *L){
@@ -104,9 +105,68 @@ static int l_open(lua_State *L){
     return 1;
 }
 
+static int l_mic(lua_State *L){
+    ps_meta *ctx=(ps_meta *)luaL_checkudata(L, 1, "vc_meta");
+    luaL_argcheck(L, ctx != NULL, 1,"Context Error");
+
+    ad_rec_t *ad;
+    int32 k;
+    uint8 utt_started, in_speech;
+    int16 adbuf[2048];
+    char const *hyp; 
+    
+    if ((ad = ad_open_dev(NULL,
+                    (int)cmd_ln_float32_r(ctx->config, 
+                        "-samprate"))) == NULL){
+        printf("dev_open() failed\n");
+        return -1;
+    }
+
+    if(ad_start_rec(ad)<0){
+        printf("rec_start() failed\n");
+        return -1;
+    }
+
+    if(ps_start_utt(ctx->ps)<0){
+        printf("utt_start() failed\n");
+        return -1;
+    }
+    utt_started = FALSE;
+    printf("Ready...\n");
+
+    for(;;){
+        if((k = ad_read(ad, adbuf, 2048))<0){
+            printf("ad_read() failed\n");
+            return -1;
+        }
+        ps_process_raw(ctx->ps, adbuf, k, FALSE, FALSE);
+        in_speech = ps_get_in_speech(ctx->ps);
+        if(in_speech && !utt_started){
+            utt_started= TRUE;
+            printf("Listen...\n");
+        }
+        if(!in_speech && utt_started){
+            ps_end_utt(ctx->ps);
+            break;
+        }
+    }
+    hyp = ps_get_hyp(ctx->ps, NULL);
+    if(hyp != NULL){
+        printf("Text: %s\n", hyp);
+        lua_pushstring(L, hyp);
+    }else{
+        printf("(NULL)");
+        lua_pushstring(L, "{NULL}");
+    }
+    ad_close(ad);
+
+    return 1;
+}
+
 static const struct luaL_Reg voice_obj[] = {
     {"open", l_open},
     {"close", l_close},
+    {"mic", l_mic},
     {NULL, NULL},
 };
 
