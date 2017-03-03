@@ -29,7 +29,7 @@ speech = speechtotxt.init(nil,nil,nil)
 
 --get the speechtotxt result
 --Address of sound file as argument
-txt = speech:open("./test.wav")
+txt = speech:infile("./test.wav")
 print(txt)
 
 --close context
@@ -45,7 +45,7 @@ speech = speechtotxt.init(nil,nil,nil)
 
 --get the speechtotxt result
 --it will wait for speak
-txt = speech:mic()
+txt = speech:inmic()
 print(txt)
 
 --close context
