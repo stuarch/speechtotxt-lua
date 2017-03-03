@@ -72,7 +72,7 @@ static int l_close(lua_State *L){
     return 1;
 }
 
-static int l_open(lua_State *L){
+static int l_file(lua_State *L){
     ps_meta *ctx=(ps_meta *)luaL_checkudata(L, 1, "vc_meta");
     luaL_argcheck(L, ctx != NULL, 1,"Context Error");
 
@@ -105,7 +105,7 @@ static int l_open(lua_State *L){
     return 1;
 }
 
-static int l_mic(lua_State *L){
+static int l_microphone(lua_State *L){
     ps_meta *ctx=(ps_meta *)luaL_checkudata(L, 1, "vc_meta");
     luaL_argcheck(L, ctx != NULL, 1,"Context Error");
 
@@ -164,9 +164,9 @@ static int l_mic(lua_State *L){
 }
 
 static const struct luaL_Reg voice_obj[] = {
-    {"open", l_open},
+    {"infile", l_file},
     {"close", l_close},
-    {"mic", l_mic},
+    {"inmic", l_microphone},
     {NULL, NULL},
 };
 
