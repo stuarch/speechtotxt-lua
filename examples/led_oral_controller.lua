@@ -1,7 +1,7 @@
 speechtotxt = require("speechtotxt")
 
 speech = speechtotxt.init(nil,nil, "./order.dict")
-txt = speech:mic()
+txt = speech:inmic()
 
 if txt:find("on")~=nil then
     --put your turn on command here
