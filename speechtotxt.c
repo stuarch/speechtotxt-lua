@@ -30,21 +30,21 @@ static int l_init(lua_State *L){
     char *hmm, *lm, *dict;
 
     if(lua_isnil(L, 1)){
-        hmm = "/usr/share/pocketsphinx/model/en-us/en-us";
+        hmm = MODELDIR "/en-us/en-us";
     }else{
         hmm = malloc(sizeof(luaL_checkstring(L, 1)));
         strcpy(hmm, luaL_checkstring(L, 1));
     }
     
     if(lua_isnil(L, 2)){
-        lm = "/usr/share/pocketsphinx/model/en-us/en-us.lm.bin";
+        lm = MODELDIR "/en-us/en-us.lm.bin";
     }else{
         lm = malloc(sizeof(luaL_checkstring(L, 2)));
         strcpy(lm, luaL_checkstring(L, 2));
     }
     
     if(lua_isnil(L, 3)){
-        dict = "/usr/share/pocketsphinx/model/en-us/cmudict-en-us.dict";
+        dict = MODELDIR "/en-us/cmudict-en-us.dict";
     }else{
         dict = malloc(sizeof(luaL_checkstring(L, 3)));
         strcpy(dict, luaL_checkstring(L, 3));

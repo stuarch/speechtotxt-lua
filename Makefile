@@ -1,10 +1,11 @@
 CC = gcc
 #INCLUDE = -I/usr/include/sphinxbase -I/usr/include/pocketsphinx -I/usr/include/sphinxbase -lpocketsphinx -lsphinxbase -lsphinxad -lpulse -lpulse-simple -lpthread -lm -lblas -llapack -I/usr/include/lua5.2 -llua5.2
 INCLUDE = `pkg-config --cflags --libs sphinxbase pocketsphinx lua51` 
+MODELDIR = -DMODELDIR=\"`pkg-config --variable=modeldir pocketsphinx`\"
 TARGET = speechtotxt
 
 main: $(TARGET).c
-	$(CC) -Wall -fPIC -shared $(INCLUDE) $(TARGET).c -o $(TARGET).so
+	$(CC) -Wall -fPIC -shared $(MODELDIR) $(INCLUDE) $(TARGET).c -o $(TARGET).so
 
 install:
 	if not [ -d /usr/local/lib/lua/ ]; then
