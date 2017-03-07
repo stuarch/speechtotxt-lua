@@ -8,11 +8,11 @@ main: $(TARGET).c
 	$(CC) -Wall -fPIC -shared $(MODELDIR) $(INCLUDE) $(TARGET).c -o $(TARGET).so
 
 install:
-	if not [ -d /usr/local/lib/lua/ ]; then
-		mkdir /usr/local/lib/lua/
+	@if not [ -d /usr/local/lib/lua ]; then\
+		mkdir /usr/local/lib/lua/;\
 	fi
-	if not [ -d /usr/local/lib/lua/5.1/ ]; then
-		mkdir /usr/local/lib/lua/5.1/
+	@if not [ -d /usr/local/lib/lua/5.1 ]; then\
+		mkdir /usr/local/lib/lua/5.1/;\
 	fi
 	cp ./$(TARGET).so /usr/local/lib/lua/5.1/$(TARGET).so
 
