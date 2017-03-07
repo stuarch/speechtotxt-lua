@@ -10,6 +10,7 @@
 #include <lualib.h>
 
 #include <sphinxbase/ad.h>
+#include <sphinxbase/err.h>
 #include <pocketsphinx.h>
 
 static int l_version(lua_State *L){
@@ -50,6 +51,8 @@ static int l_init(lua_State *L){
         strcpy(dict, luaL_checkstring(L, 3));
     }
 
+    err_set_logfp(NULL);
+    err_set_debug_level(0);
     ctx->config = cmd_ln_init(NULL, ps_args(), TRUE,
             "-hmm", hmm,
             "-lm", lm,
